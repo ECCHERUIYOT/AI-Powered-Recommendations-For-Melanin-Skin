@@ -1,81 +1,107 @@
 import streamlit as st
 import pandas as pd
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.metrics.pairwise import cosine_similarity
+import pickle
+from sklearn.preprocessing import LabelEncoder, StandardScaler
+from sklearn.neighbors import NearestNeighbors
 from sklearn.decomposition import TruncatedSVD
-import numpy as np
+from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
+from sklearn.metrics.pairwise import cosine_similarity
+from sklearn.feature_extraction.text import TfidfVectorizer
 
-# Load the data
-data = pd.read_csv('data.csv')  # Adjust file path as necessary
-user_product_interactions = pd.read_csv('user_product_interactions.csv')  # Adjust file path as necessary
+# Load models
+sentiment_model_path = 'models/sentiment_analysis_model.pkl'
+knn_model_path = 'models/knn_model.pkl'
+svd_model_path = 'models/svd_model.pkl'
+xgb_model_path = 'models/xgboost_model.pkl'
 
-# Content-Based Filtering with TF-IDF on ingredients and product features
-tfidf = TfidfVectorizer(stop_words='english')
-ingredients_matrix = tfidf.fit_transform(data['ingredients'])
-cosine_sim = cosine_similarity(ingredients_matrix, ingredients_matrix)
+# Load pre-trained models
+with open(sentiment_model_path, 'rb') as file:
+    sia = pickle.load(file)
+with open(knn_model_path, 'rb') as file:
+    knn = pickle.load(file)
+with open(svd_model_path, 'rb') as file:
+    svd_model = pickle.load(file)
+with open(xgb_model_path, 'rb') as file:
+    xgb_model = pickle.load(file)
 
-# Collaborative Filtering with SVD
-interaction_matrix = user_product_interactions.pivot(index='user_id', columns='product_id', values='interaction')
-interaction_matrix.fillna(0, inplace=True)
-svd = TruncatedSVD(n_components=20, random_state=42)
-user_factors = svd.fit_transform(interaction_matrix)
-product_factors = svd.components_.T
+# Load preprocessed data
+data = pd.read_csv('data/preprocessed_data.csv')
 
-# Content-Based Recommendation function using user input criteria
-def content_based_recommendations(user_filters, top_n=5):
-    # Apply filters
-    recommendations = data.copy()
-    for feature, value in user_filters.items():
-        if value:
-            recommendations = recommendations[recommendations[feature] == value]
-    
-    # Calculate similarity on filtered data and get top N results
-    filtered_indices = recommendations.index.tolist()
-    sim_matrix_filtered = cosine_sim[filtered_indices, :][:, filtered_indices]
-    sim_scores = sim_matrix_filtered.mean(axis=0)
-    top_indices = np.argsort(sim_scores)[-top_n:][::-1]
-    
-    return recommendations.iloc[top_indices][['product_name', 'brand_name', 'price_usd']]
+# Filter melanated skin tone category
+melanated_data = data[data['skin_tone_category'] == 'melanated']
 
-# Collaborative Filtering Recommendation function
-def collaborative_recommendations(user_id, top_n=5):
-    user_index = interaction_matrix.index.get_loc(user_id)
-    user_vector = user_factors[user_index]
-    scores = np.dot(product_factors, user_vector)
-    product_indices = np.argsort(scores)[-top_n:][::-1]  # Top recommendations
-    return data.iloc[product_indices][['product_name', 'brand_name', 'price_usd']]
+# Preprocessing for ingredient-based recommendations
+vectorizer = TfidfVectorizer(stop_words='english')
+ingredient_matrix = vectorizer.fit_transform(melanated_data['ingredients'].fillna(""))
 
-# Streamlit UI
+# Create User-Product Interaction Matrix for collaborative filtering
+user_product_matrix = data.pivot_table(index='author_id', columns='product_id', values='rating_x').fillna(0)
+
+# Apply SVD to create latent matrix
+svd = TruncatedSVD(n_components=20)
+latent_matrix = svd.fit_transform(user_product_matrix)
+
+# Streamlit App Interface
 st.title("AI-Powered Skincare Recommendations for Melanin-Rich Skin")
-st.write("Get personalized skincare suggestions tailored for your unique skin tone and concerns.")
+st.sidebar.header("Filter Preferences")
 
-# User inputs for recommendation criteria
-skin_tone = st.selectbox("Select Skin Tone:", data['skin_tone'].unique())
-skin_type = st.selectbox("Select Skin Type:", data['skin_type'].unique())
-price_ksh = st.slider("Maximum Price (Ksh):", int(data['price_ksh'].min()), int(data['price_ksh'].max()))
-primary_category = st.selectbox("Primary Category:", data['primary_category'].unique())
-secondary_category = st.selectbox("Secondary Category:", data['secondary_category'].unique())
-user_id = st.number_input("Enter User ID for Collaborative Recommendations (optional)", min_value=1, step=1, value=0)
+# Sidebar filters
+skin_type = st.sidebar.selectbox("Select Skin Type", options=['combination', 'oily', 'dry', 'normal'])
+price_tier = st.sidebar.selectbox("Select Price Tier", options=['Budget', 'Mid-Range', 'Premium'])
+product_input = st.sidebar.text_input("Enter Product Name (optional)")
 
-# Combine user filters into a dictionary
-user_filters = {
-    'skin_tone': skin_tone,
-    'skin_type': skin_type,
-    'price_ksh': price_ksh,
-    'primary_category': primary_category,
-    'secondary_category': secondary_category
-}
+# Filtering based on user input
+filtered_data = melanated_data[(melanated_data['skin_type'] == skin_type) & (melanated_data['price_tier'] == price_tier)]
 
-# Content-Based Filtering Recommendations
-if st.button("Get Content-Based Recommendations"):
-    recommendations = content_based_recommendations(user_filters)
-    st.write("Here are some product recommendations based on your preferences:")
-    for index, row in recommendations.iterrows():
-        st.write(f"**{row['product_name']}** by {row['brand_name']} - ${row['price_usd']}")
+# Select recommendation method
+rec_method = st.selectbox("Select Recommendation Method", options=['Sentiment-based', 'Ingredient-based (KNN)', 'Collaborative Filtering (SVD)'])
 
-# Collaborative Filtering Recommendations
-if st.button("Get Collaborative Recommendations") and user_id:
-    recommendations = collaborative_recommendations(user_id)
-    st.write("Products you might like based on similar users:")
-    for index, row in recommendations.iterrows():
-        st.write(f"**{row['product_name']}** by {row['brand_name']} - ${row['price_usd']}")
+# Check if the sentiment score column exists, calculate if not
+if 'sentiment_score' not in data.columns:
+    analyzer = SentimentIntensityAnalyzer()
+    
+    def calculate_sentiment_score(text):
+        sentiment = analyzer.polarity_scores(text)
+        return sentiment['compound']
+
+    data['sentiment_score'] = data['review_text'].apply(calculate_sentiment_score)
+
+# Filter melanated skin tone category
+melanated_data = data[data['skin_tone_category'] == 'melanated']
+if rec_method == 'Sentiment-based':
+    # Input user ID
+    user_id = st.text_input("Enter User ID for Sentiment-based Recommendations", '7085042638')
+    
+    # Generate and display recommendations
+    if st.button("Generate Recommendations"):
+        user_reviews = melanated_data[melanated_data['author_id'] == user_id]
+        if not user_reviews.empty:  # Check if user_reviews is not empty
+            positive_reviews = user_reviews[user_reviews['sentiment_score'] > 0.05]
+            recommendations = positive_reviews['product_name'].head(5)
+            st.write("Top recommendations based on positive sentiment:")
+            st.write(recommendations)
+        else:
+            st.write("No reviews found for the specified user ID.")
+
+elif rec_method == 'Ingredient-based (KNN)':
+    # Input product ID
+    product_id = st.text_input("Enter Product ID for Ingredient-based Recommendations", 'P442546')
+    
+    if st.button("Get Ingredient-based Recommendations"):
+        product_index = melanated_data[melanated_data['product_id'] == product_id].index[0]
+        distances, indices = knn.kneighbors(ingredient_matrix[product_index], n_neighbors=5)
+        recommended_products = melanated_data.iloc[indices[0]]
+        st.write("Products with similar ingredients:")
+        st.write(recommended_products[['product_id', 'product_name', 'brand_name', 'price_tier']])
+
+elif rec_method == 'Collaborative Filtering (SVD)':
+    # Input user ID
+    user_id = st.text_input("Enter User ID for Collaborative Filtering", '1030820541')
+    
+    if st.button("Get Collaborative Recommendations"):
+        user_index = data.index[data['author_id'] == user_id].tolist()[0]
+        scores = latent_matrix[user_index].dot(latent_matrix.T)
+        top_recommendations = scores.argsort()[-5:][::-1]
+        recommendations = data['product_name'].iloc[top_recommendations]
+        st.write("Collaborative Filtering Recommendations:")
+        st.write(recommendations)

@@ -40,7 +40,7 @@ The key features include:
 ### Visualizations
 
 #### Count of Products by Skin Type
-![Count of Products by Skin Type](images\image1.png)
+![Count of Products by Skin Type](C:\Users\user\Documents\MORINGA\Phase5\Project\AI-Powered-Recommendations-For-Melanin-Skin\images\image1.png.)
 
 #### Top 20 Recommended Products for Melanin Skin
 ![Top 20 Recommended Products for Melanin Skin](images\image2.png)

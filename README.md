@@ -40,6 +40,22 @@ The key features include:
 ### Visualizations
 
 #### Count of Products by Skin Type
-![Model Overview](images\image1.png)
+![Count of Products by Skin Type](images\image1.png)
 
+#### Top 20 Recommended Products for Melanin Skin
+![Top 20 Recommended Products for Melanin Skin](images\image2.png)
+
+#### Out of stock Products and Recommendations based on skin tone
+![Out of stock Products and Recommendations based on skin tone](images\image3.png)
+
+#### Heatmap of Product Count by Skin Tone Category and Skin Type
+![Heatmap of Product Count by Skin Tone Category and Skin Type](images\image4.png)
+
+
+## Modeling and Evaluation
+
+
+## Conclusion
+
+## Repository Navigation
 

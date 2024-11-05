@@ -7,6 +7,67 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 
 # Set up Streamlit page configuration
 st.set_page_config(page_title="AI-Powered Skincare Recommendations for Melanin-Rich Skin", layout="wide")
+# Custom CSS for styling
+# Custom CSS for styling
+st.markdown("""
+    <style>
+        body {
+            background-color: #F8F9FA;  /* Light gray background */
+            color: #333;  /* Dark text color */
+        }
+
+        .title {
+            font-size: 36px;
+            color: #a260dd;
+            text-align: center;
+            font-weight: bold;
+        }
+        .subtitle {
+            font-size: 24px;
+            color: #7F8C8D;
+            text-align: center;
+        }
+        .header {
+            background-color: #efe657;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .recommendations {
+            border: 1px solid #60b5dd;
+            border-radius: 5px;
+            padding: 10px;
+            background-color: #ECF0F1;
+        }
+        .stButton>button {
+            background-color: #60b5dd;  /* Button color */
+            color: white;  /* Button text color */
+            font-size: 16px;  /* Button font size */
+            padding: 10px 20px;  /* Button padding */
+            border: none;  /* Remove border */
+            border-radius: 5px;  /* Rounded corners */
+            cursor: pointer;  /* Pointer cursor */
+            transition: background-color 0.3s;  /* Smooth transition */
+        }
+        
+        .stButton>button:hover {
+            background-color: #4DA2B7;  /* Darker button color on hover */
+        }
+
+        .sidebar .sidebar-content {
+            background-color: #2C3E50;
+            color: white;
+        }
+
+        /* Style the inputs */
+        .stSelectbox, .stTextInput {
+            border: 1px solid #BDC3C7;  /* Border color */
+            border-radius: 5px;  /* Rounded corners */
+            padding: 10px;  /* Padding */
+            background-color: white;  /* Input background color */
+        }
+    </style>
+""", unsafe_allow_html=True)
+
 
 # Load pre-trained models and data
 @st.cache_data
@@ -109,16 +170,17 @@ def hybrid_recommendations(user_id, product_name, top_n=5, alpha=0.5):
     return combined_recs[['product_name', 'brand_name', 'price_ksh', 'rating', 'score']]
 
 # Sidebar for Navigation
-st.sidebar.title("Pages")
-page_selection = st.sidebar.radio(
-    "Do you want recommendations based on:",
-    ("Your Features?", "A Product You Already Like?", "Hybrid Recommendations")
-)
+st.sidebar.title("Navigation")
+st.sidebar.markdown('<div class="header">Recommendation Options</div>', unsafe_allow_html=True)
+
+page_selection = st.sidebar.radio( "Do you want products based on:",
+    ("Your Features?", "A Product You Already Like?", "Hybrid Recommendations"))
 
 # Home Page: Customer-Feature Based Recommender
 if page_selection == "Your Features?":
-    st.title("Personalized Skincare Recommendations")
-    st.markdown("### Get recommendations tailored to your unique skin profile!")
+    st.markdown('<div class="title">Personalized Skincare Recommendations</div>', unsafe_allow_html=True)
+    st.markdown('<div class="subtitle">Get recommendations tailored to your unique skin profile!</div>', unsafe_allow_html=True)
+
 
     # Filters for user input
     skin_type = st.selectbox("Select Skin Type", options=['combination', 'oily', 'dry', 'normal'])
@@ -137,7 +199,7 @@ if page_selection == "Your Features?":
     if not filtered_data.empty:
         unique_recommendations = filtered_data[['product_name', 'brand_name', 'rating', 'price_ksh']].drop_duplicates()
         unique_recommendations = unique_recommendations.sort_values(by='rating', ascending=False).head(10)
-        st.write("#### Recommended Products for Your Features:")
+        st.markdown('<div class="recommendations">Recommended Products for Your Features:</div>', unsafe_allow_html=True)
         st.write(unique_recommendations)
     else:
         st.write("No products found that match your criteria. Try adjusting your filters.")

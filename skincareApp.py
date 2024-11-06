@@ -4,67 +4,23 @@ import pickle
 from sklearn.decomposition import TruncatedSVD
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.feature_extraction.text import TfidfVectorizer
+from scipy.sparse import csr_matrix
+from sklearn.neighbors import NearestNeighbors
 
 # Set up Streamlit page configuration
 st.set_page_config(page_title="AI-Powered Skincare Recommendations for Melanin-Rich Skin", layout="wide")
-# Custom CSS for styling
+
 # Custom CSS for styling
 st.markdown("""
     <style>
-        body {
-            background-color: #F8F9FA;  /* Light gray background */
-            color: #333;  /* Dark text color */
-        }
-
-        .title {
-            font-size: 36px;
-            color: #a260dd;
-            text-align: center;
-            font-weight: bold;
-        }
-        .subtitle {
-            font-size: 24px;
-            color: #7F8C8D;
-            text-align: center;
-        }
-        .header {
-            background-color: #efe657;
-            padding: 10px;
-            border-radius: 5px;
-        }
-        .recommendations {
-            border: 1px solid #60b5dd;
-            border-radius: 5px;
-            padding: 10px;
-            background-color: #ECF0F1;
-        }
-        .stButton>button {
-            background-color: #60b5dd;  /* Button color */
-            color: white;  /* Button text color */
-            font-size: 16px;  /* Button font size */
-            padding: 10px 20px;  /* Button padding */
-            border: none;  /* Remove border */
-            border-radius: 5px;  /* Rounded corners */
-            cursor: pointer;  /* Pointer cursor */
-            transition: background-color 0.3s;  /* Smooth transition */
-        }
-        
-        .stButton>button:hover {
-            background-color: #4DA2B7;  /* Darker button color on hover */
-        }
-
-        .sidebar .sidebar-content {
-            background-color: #2C3E50;
-            color: white;
-        }
-
-        /* Style the inputs */
-        .stSelectbox, .stTextInput {
-            border: 1px solid #BDC3C7;  /* Border color */
-            border-radius: 5px;  /* Rounded corners */
-            padding: 10px;  /* Padding */
-            background-color: white;  /* Input background color */
-        }
+        body { background-color: #F8F9FA; color: #333; }
+        .title { font-size: 36px; color: #9053c8; text-align: center; font-weight: bold; }
+        .subtitle { font-size: 24px; color: #7F8C8D; text-align: center; }
+        .header { background-color: #efe657; padding: 10px; border-radius: 5px; }
+        .recommendations { border: 1px solid #f683ff; border-radius: 5px; padding: 10px; background-color: #fdf4fb; }
+        .stButton>button { background-color: #60b5dd; color: white; font-size: 16px; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; transition: background-color 0.3s; }
+        .stButton>button:hover { background-color: #4DA2B7; }
+        .sidebar .sidebar-content { background-color: #2C3E50; color: white; }
     </style>
 """, unsafe_allow_html=True)
 
@@ -76,29 +32,32 @@ def load_data():
 
 @st.cache_resource
 def load_models():
-    with open('models/sentiment_analysis_model.pkl', 'rb') as file:
-        sia = pickle.load(file)
-    with open('models/knn_model.pkl', 'rb') as file:
-        knn = pickle.load(file)
+    with open('models/content_based_model.pkl', 'rb') as file:
+        content_based_model = pickle.load(file)
     with open('models/svd_model.pkl', 'rb') as file:
         svd_model = pickle.load(file)
-    with open('models/xgboost_model.pkl', 'rb') as file:
-        xgb_model = pickle.load(file)
-    return sia, knn, svd_model, xgb_model
+    return content_based_model, svd_model
 
 # Load data and models
 data = load_data()
-sia, knn, svd_model, xgb_model = load_models()
+content_based_model, svd_model = load_models()
 
-# Vectorize ingredients and create a cosine similarity matrix for content-based filtering
+# Vectorize ingredients and create sparse matrix for content-based filtering
 tfidf = TfidfVectorizer(stop_words='english')
 ingredients_matrix = tfidf.fit_transform(data['ingredients'].fillna(''))
-cosine_sim = cosine_similarity(ingredients_matrix, ingredients_matrix)
+# Initialize NearestNeighbors model for content-based filtering
+content_based_model = NearestNeighbors(n_neighbors=6, metric='cosine', n_jobs=-1)
+content_based_model.fit(ingredients_matrix)
 
-# Apply SVD for Collaborative Filtering
-user_product_matrix = data.pivot_table(index='author_id', columns='product_id', values='rating').fillna(0)
+# Collaborative Filtering Setup
+top_users = data['author_id'].value_counts().head(2000).index
+top_products = data['product_id'].value_counts().head(10000).index
+filtered_data = data[data['author_id'].isin(top_users) & data['product_id'].isin(top_products)]
+user_product_matrix = filtered_data.pivot_table(index='author_id', columns='product_id', values='rating').fillna(0)
+user_product_sparse = csr_matrix(user_product_matrix.values)
 svd = TruncatedSVD(n_components=20)
-latent_matrix = svd.fit_transform(user_product_matrix)
+latent_matrix = svd.fit_transform(user_product_sparse)
+user_index_map = {user_id: idx for idx, user_id in enumerate(user_product_matrix.index)}
 
 # Define function to get top ingredients based on TF-IDF score
 def get_top_ingredients(tfidf_vector, feature_names, top_n=5):
@@ -108,16 +67,18 @@ def get_top_ingredients(tfidf_vector, feature_names, top_n=5):
 
 # Collaborative Filtering Recommendation function
 def collaborative_recommendations(user_id, top_n=5):
-    try:
-        user_index = data.index[data['author_id'] == user_id].tolist()[0]
-    except IndexError:
-        st.error("User not found in the dataset.")
+    if user_id not in user_index_map:
+        st.error("User ID not found in the dataset.")
         return None
 
+    user_index = user_index_map[user_id]
     scores = latent_matrix[user_index].dot(latent_matrix.T)
-    top_recommendations = scores.argsort()[-top_n:][::-1]
-    recommended_products = data.iloc[top_recommendations][['product_name', 'brand_name', 'rating', 'price_ksh']]
-    return recommended_products
+    top_recommendations = scores.argsort()[-top_n-1:][::-1][1:]
+    recommended_indices = user_product_matrix.columns[top_recommendations]
+    recommended_products = data[data['product_id'].isin(recommended_indices)][['product_name', 'brand_name', 'rating', 'price_ksh']].drop_duplicates()
+    sorted_recommendations = recommended_products.sort_values(by='rating', ascending=False).head(top_n)
+    
+    return sorted_recommendations
 
 # Content-Based Recommendation function with sorting by rating
 def content_based_recommendations(product_name, top_n=5):
@@ -127,44 +88,36 @@ def content_based_recommendations(product_name, top_n=5):
         st.error("Product not found in the dataset.")
         return None
 
-    sim_scores = list(enumerate(cosine_sim[product_index]))
-    sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)
+    distances, indices = content_based_model.kneighbors(ingredients_matrix[product_index], n_neighbors=top_n+1)
 
-    unique_recommendations = []
-    seen_products = set()
-    for score in sim_scores:
-        product_idx = score[0]
-        product_name_candidate = data.iloc[product_idx]['product_name']
-        if product_name_candidate != product_name and product_name_candidate not in seen_products:
-            unique_recommendations.append(product_idx)
-            seen_products.add(product_name_candidate)
-        if len(unique_recommendations) >= top_n:
-            break
+    # Skip the first result as it will be the product itself
+    recommendations = data.iloc[indices[0][1:]][['product_name', 'brand_name', 'rating', 'price_ksh']]
 
-    recommendations = data.iloc[unique_recommendations][['product_name', 'brand_name', 'rating', 'price_ksh']]
+    # Get the top ingredients for each recommended product
     feature_names = tfidf.get_feature_names_out()
-    top_ingredients = [get_top_ingredients(ingredients_matrix[i].toarray().flatten(), feature_names) for i in unique_recommendations]
+    top_ingredients = []
+    for index in indices[0][1:]:
+        row_vector = ingredients_matrix[index].toarray().flatten()
+        top_ingredients.append(get_top_ingredients(row_vector, feature_names))
+
     recommendations['top_ingredients'] = top_ingredients
 
     # Sort recommendations by rating in descending order
-    recommendations = recommendations.sort_values(by='rating', ascending=False)
+    sorted_recommendations = recommendations.sort_values(by='rating', ascending=False)
 
-    return recommendations
+    return sorted_recommendations
 
 # Hybrid Recommendation function
 def hybrid_recommendations(user_id, product_name, top_n=5, alpha=0.5):
-    collaborative_recs = collaborative_recommendations(user_id, top_n)
     content_recs = content_based_recommendations(product_name, top_n)
+    collaborative_recs = collaborative_recommendations(user_id, top_n)
 
-    if collaborative_recs is None and content_recs is None:
-        st.error("No recommendations found.")
+    if content_recs is None or collaborative_recs is None:
         return None
 
-    # Combining the scores using a weighted approach
-    combined_recs = collaborative_recs.copy()
-    combined_recs['score'] = alpha * collaborative_recs['rating'] + (1 - alpha) * content_recs['rating'].values[:len(combined_recs)]
-    
-    # Sort by the combined score
+    combined_recs = content_recs.copy()
+    combined_recs['collab_rating'] = collaborative_recs['rating'].values[:len(combined_recs)]
+    combined_recs['score'] = alpha * combined_recs['rating'] + (1 - alpha) * combined_recs['collab_rating']
     combined_recs = combined_recs.sort_values(by='score', ascending=False)
 
     return combined_recs[['product_name', 'brand_name', 'price_ksh', 'rating', 'score']]
@@ -177,23 +130,38 @@ page_selection = st.sidebar.radio( "Do you want products based on:",
     ("Your Features?", "A Product You Already Like?", "Hybrid Recommendations"))
 
 # Home Page: Customer-Feature Based Recommender
+# Updated Sidebar for user selection
 if page_selection == "Your Features?":
     st.markdown('<div class="title">Personalized Skincare Recommendations</div>', unsafe_allow_html=True)
     st.markdown('<div class="subtitle">Get recommendations tailored to your unique skin profile!</div>', unsafe_allow_html=True)
 
-
     # Filters for user input
-    skin_type = st.selectbox("Select Skin Type", options=['combination', 'oily', 'dry', 'normal'])
+    skin_type = st.selectbox("Select Skin Type", options=['dry', 'combination', 'oily', 'normal'])
     skin_tone_category = st.selectbox("Select Skin Tone Category", options=['melanated', 'non-melanated'])
+
+    # Filter skin_tone values based on selected skin_tone_category
+    light_skin_tones = ['light', 'fair', 'lightMedium', 'fairLight', 'porcelain', 'olive']
+    dark_skin_tones = ['deep', 'mediumTan', 'medium', 'tan', 'rich', 'dark']
+
+    if skin_tone_category == 'non-melanated':
+        skin_tone = st.selectbox("Select Skin Tone", options=light_skin_tones)
+    else:  # melanated
+        skin_tone = st.selectbox("Select Skin Tone", options=dark_skin_tones)
+    
     price_tier = st.selectbox("Select Price Tier", options=['Budget', 'Mid-Range', 'Premium'])
+    primary_category = st.selectbox("Select Primary Category", options=data['primary_category'].unique())
     secondary_category = st.selectbox("Select Secondary Category", options=data['secondary_category'].unique())
+    tertiary_category = st.selectbox("Select Tertiary Category", options=data['tertiary_category'].unique())
 
     # Filter data based on user input
     filtered_data = data[
         (data['skin_type'] == skin_type) & 
         (data['skin_tone_category'] == skin_tone_category) & 
+        (data['skin_tone'] == skin_tone) & 
         (data['price_tier'] == price_tier) &
-        (data['secondary_category'] == secondary_category)
+        (data['primary_category'] == primary_category) & 
+        (data['secondary_category'] == secondary_category) & 
+        (data['tertiary_category'] == tertiary_category)
     ]
 
     if not filtered_data.empty:
@@ -206,8 +174,8 @@ if page_selection == "Your Features?":
 
 # Page for Ingredient Similarity-based Recommender
 elif page_selection == "A Product You Already Like?":
-    st.markdown("## Find products with similar ingredients to the product you specify.")
-    product_name = st.text_input("Enter Your favorite  Product Name (e.g., 'Deep Exfoliating Cleanser'):", 'Aloe Vera Gel')
+    st.markdown("## Find products similar to the product you specify.")
+    product_name = st.text_input("Enter Product Name (e.g., 'Aloe Vera Gel'):",  'Deep Exfoliating Cleanser')
 
     if st.button("Get Recommendations"):
         recommendations = content_based_recommendations(product_name)
@@ -220,7 +188,7 @@ elif page_selection == "A Product You Already Like?":
 # Page for Hybrid Recommendation
 elif page_selection == "Hybrid Recommendations":
     st.markdown('''
-    ### This hybrid recommendation system helps you discover new products based on: 
+    ### This hybrid recommendation system helps you discover products based on: 
     1. **What you like:** Similar products based on the ingredients and features of products you’ve liked. 
     2. **What others like:** Recommendations based on the tastes of users who have similar preferences to you.
     ''')

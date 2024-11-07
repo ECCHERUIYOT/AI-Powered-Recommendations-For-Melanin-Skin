@@ -41,7 +41,7 @@ The key features include:
 ### Exploratory Data Analysis
 
 #### 1. Count of Products by Skin Type
-![Count of Products by Skin Type](images\image1.png)
+![Count of Products by Skin Type](https://github.com/ECCHERUIYOT/AI-Powered-Skincare-Recommendations-For-Melanin-Skin/blob/Echeruiyot/images/image1.png)
 
 * The distribution shows that products labeled for combination skin are the most common, followed by those for dry, normal, and then oily skin. This insight can guide product selection based on prevalent skin types and consumer demand within the Black women demographic.
 

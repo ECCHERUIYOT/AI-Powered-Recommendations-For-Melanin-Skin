@@ -40,7 +40,9 @@ The key features include:
 ### Visualizations
 
 #### Count of Products by Skin Type
-![Count of Products by Skin Type](r'C:\Users\user\Documents\MORINGA\Phase5\Project\AI-Powered-Recommendations-For-Melanin-Skin\images\image1.png')
+![Count of Products by Skin Type](images/image1)
+
+* The distribution shows that products labeled for combination skin are the most common, followed by those for dry, normal, and then oily skin. This insight can guide product selection based on prevalent skin types and consumer demand within the Black women demographic.
 
 #### Top 20 Recommended Products for Melanin Skin
 ![Top 20 Recommended Products for Melanin Skin](images\image2.png)

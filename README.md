@@ -40,12 +40,12 @@ The key features include:
 
 ### Exploratory Data Analysis
 
-#### Count of Products by Skin Type
-![Count of Products by Skin Type](images\image1.png)
+#### 1. Count of Products by Skin Type
+![Count of Products by Skin Type](Images\image1.png)
 
 * The distribution shows that products labeled for combination skin are the most common, followed by those for dry, normal, and then oily skin. This insight can guide product selection based on prevalent skin types and consumer demand within the Black women demographic.
 
-#### Top 20 Recommended Products for Melanin Skin
+#### 2. Top 20 Recommended Products for Melanin Skin
 ![Top 20 Recommended Products for Melanin Skin](images\image2.png)
 * For melanated skin tones, there's a strong emphasis on gentle yet effective skincare products, with the top three recommendations focusing on hydration and sun protection.
 

@@ -1,11 +1,7 @@
 # AI POWERED BEAUTY PRODUCTS RECOMMENDATIONS
-![Cosmetics-Skincare](https://github.com/user-attachments/assets/4f4edc17-e113-457d-9dd3-d105bcaa304c)
-![d](https://github.com/user-attachments/assets/c55c1d94-693c-4e90-ad22-09d0e65b1da8)
-![imga](https://github.com/user-attachments/assets/5faf08ba-90e2-414b-8a22-153303253e7b)
-![img](https://github.com/user-attachments/assets/2ea50e26-1991-4f6f-896d-52315ccc7a43)
-![image](https://github.com/user-attachments/assets/f9c132fc-90ca-47fa-8a9e-0f5b0eb8c213)
-![c](https://github.com/user-attachments/assets/3298f960-ff65-4a27-a650-125a835c8452)
-![Cosmetics-Skincare](https://github.com/user-attachments/assets/00d5b2f0-e7c3-4855-b9f7-96dd866ecd40)
+![d (2)](https://github.com/user-attachments/assets/6826793a-3717-436f-8ea8-71737090caee)
+
+![c (2)](https://github.com/user-attachments/assets/292a98a8-3966-436b-9bcd-def66716d4c2)
 
 
 

@@ -1,6 +1,10 @@
 # AI POWERED BEAUTY PRODUCTS RECOMMENDATIONS
 
 ![img](https://github.com/user-attachments/assets/a1190fa2-6991-49cf-8d69-afc4844d6335)
+![imagee](https://github.com/user-attachments/assets/3b36fbac-bacc-4b27-896c-639f06c72fcf)
+![image](https://github.com/user-attachments/assets/10e5fbd0-49a4-43b6-9f17-3bd6ab0c5818)
+![imgg](https://github.com/user-attachments/assets/91bfc556-559a-4879-91dc-4f96f93fa99c)
+
 
 ### Team Members
 * Brian Githinji

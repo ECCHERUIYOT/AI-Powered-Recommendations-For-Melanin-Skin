@@ -123,10 +123,7 @@ To further enhance the system and expand its impact, the following steps are rec
 - **Integrate Educational Resources**: Include guides and educational content about skincare ingredients and routines for melanin-rich skin, empowering users to make informed decisions.
 - **Implement Feedback Loops**: Add mechanisms for users to rate and provide feedback on recommendations, allowing the system to learn and improve continuously.
 - **Collaborate with Brands**: Partner with major skincare brands like Garnier and other beauty companies to integrate this recommendation system directly into their platforms, making it accessible to a wider audience.
-
 This project serves as a foundation for creating an inclusive and personalized skincare experience, supporting users with tailored product recommendations that address their unique skincare needs.
-
-# THANK YOU!
 ---
 
 ## Getting Started
@@ -139,8 +136,8 @@ To run this project locally, follow these steps:
 ### Installation
 1. Clone this repository:
    ```bash
-   git clone https://github.com/Divinegrace05/AI-powered-Beauty-Product-Recommendations.git
-   cd AI-powered-Beauty-Product-Recommendations
+   git clone https://github.com/ECCHERUIYOT/AI-Powered-Skincare-Recommendations-For-Melanin-Skin.git
+   cd AI-Powered-Skincare-Recommendations-For-Melanin-Skin
    ```
 2. Install required packages:
     ```bash
@@ -149,9 +146,9 @@ To run this project locally, follow these steps:
 
 ### Usage
 To start the Streamlit application:
-    ```bash
+   ```bash
     streamlit run skincareApp.py
-    ```
+   ```
 
 ---
 
@@ -162,5 +159,7 @@ To start the Streamlit application:
 - **`scripts/`**: Python scripts for preprocessing, feature engineering, and evaluation.
 - **`app.py`**: Main Streamlit application file.
 
+
+# THANK YOU!
 ---
 

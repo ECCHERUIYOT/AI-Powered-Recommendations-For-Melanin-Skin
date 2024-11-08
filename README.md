@@ -1,11 +1,13 @@
 # AI POWERED BEAUTY PRODUCTS RECOMMENDATIONS
+![Cosmetics-Skincare](https://github.com/user-attachments/assets/4f4edc17-e113-457d-9dd3-d105bcaa304c)
+![d](https://github.com/user-attachments/assets/c55c1d94-693c-4e90-ad22-09d0e65b1da8)
+![imga](https://github.com/user-attachments/assets/5faf08ba-90e2-414b-8a22-153303253e7b)
+![img](https://github.com/user-attachments/assets/2ea50e26-1991-4f6f-896d-52315ccc7a43)
+![image](https://github.com/user-attachments/assets/f9c132fc-90ca-47fa-8a9e-0f5b0eb8c213)
+![c](https://github.com/user-attachments/assets/3298f960-ff65-4a27-a650-125a835c8452)
+![Cosmetics-Skincare](https://github.com/user-attachments/assets/00d5b2f0-e7c3-4855-b9f7-96dd866ecd40)
 
-![img](https://github.com/user-attachments/assets/a1190fa2-6991-49cf-8d69-afc4844d6335)
-![imagee](https://github.com/user-attachments/assets/3b36fbac-bacc-4b27-896c-639f06c72fcf)
-![image](https://github.com/user-attachments/assets/10e5fbd0-49a4-43b6-9f17-3bd6ab0c5818)
-![imgg](https://github.com/user-attachments/assets/91bfc556-559a-4879-91dc-4f96f93fa99c)
-![collection](https://github.com/user-attachments/assets/6f00289c-c353-4d0e-b8aa-622332119c46)
-![test](https://github.com/user-attachments/assets/8e51f172-4d38-4a40-86f0-cee0942dd43c)
+
 
 ### Team Members
 * Brian Githinji

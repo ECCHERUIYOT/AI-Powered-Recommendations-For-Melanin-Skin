@@ -154,10 +154,10 @@ To start the Streamlit application:
 
 ## Repository Navigation
 - **`data/`**: Contains raw and processed data supporting the recommendation system.
-- **`notebooks/`**: Jupyter notebooks for EDA and model training.
+- **`images/`**: Saved images.
 - **`models/`**: Saved machine learning models.
-- **`scripts/`**: Python scripts for preprocessing, feature engineering, and evaluation.
-- **`app.py`**: Main Streamlit application file.
+- **`index.ipynb/`**: Jupyter notebook for data preprocessing, EDA and model training.
+- **`skincareApp.py`**: Main Streamlit application file.
 
 
 # THANK YOU!

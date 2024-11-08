@@ -97,7 +97,14 @@ The XGBoost model exhibits superior performance compared to the Random Forest, a
 ## Conclusion
 * According to our metric of successs our metrics indicates that the recommendation system is performing well, with a strong balance between the accuracy of recommendations and user satisfaction.
 * By using content-based filtering on ingredient similarities, collaborative filtering through SVD, and sentiment analysis, the system delivers customized product suggestions that align with users’ unique skin concerns and preferences. The Streamlit interface enhances user experience, providing an intuitive way for users to access their personalized recommendations easily.
-* The recommendation model was deployed using Streamlit interface.
+* The recommendation model was deployed using Streamlit framework.
+
+## Streamlit UI
+![Home Page 1](https://github.com/user-attachments/assets/ce3c2f2f-ed2c-4190-bb9f-d1b11b256034)
+![Home Page 2](https://github.com/user-attachments/assets/e7311adf-9768-4c6c-a7e3-ba345c3d1c10)
+![Highlights](https://github.com/user-attachments/assets/d37bd37f-b4d4-4296-8946-49ffed628208)
+![Content-Based](https://github.com/user-attachments/assets/9a45c1fa-6d88-4cb1-a189-11745e48f33f)
+
 
 ## Repository Navigation
 Link to the final notebook and presentation are shared below;

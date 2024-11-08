@@ -1,6 +1,6 @@
-# AI-Powered-Recommendations-For-Melanin-Skin
+# AI POWERED BEAUTY PRODUCTS RECOMMENDATIONS
 
-![2d248f5507752726ddc2198b39071e4e](https://github.com/user-attachments/assets/9c7a2247-b758-4aee-8bc7-50fa0bf76f2d)
+![img](https://github.com/user-attachments/assets/a1190fa2-6991-49cf-8d69-afc4844d6335)
 
 ### Team Members
 * Brian Githinji

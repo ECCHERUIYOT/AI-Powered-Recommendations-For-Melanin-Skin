@@ -1,25 +1,25 @@
-# AI-POWERED BEAUTY PRODUCT RECOMMENDATION SYSTEM
+# AI-POWERED PERSONALIZED SKINCARE RECOMMENDER
 ![product](https://github.com/user-attachments/assets/d370cd58-a84b-472c-afa3-ea13a3424085)
 
 
 ## Project Overview
-This project focuses on building an AI-powered recommendation system for a variety of beauty products. While traditional recommendation systems tend to specialize in a single category, this project is designed to suggest a broad spectrum of products including skincare, haircare, supplements, perfumes, makeup, and more. This system aims to deliver personalized beauty recommendations that cater to users’ unique needs and preferences using advanced AI techniques.
+This project focuses on building an AI-powered skincare recommendation system, to cater to the needs of unique skin profiles. While traditional recommendation systems tend to generalize the recommendations, this project is designed to suggest a personalized skincare product to the end user. This system aims to deliver personalized skincare recommendations that cater to users’ unique needs and preferences using advanced AI techniques.
 
 ---
 
 ## Problem Statement
-The vast array of beauty products available today can make it difficult for consumers to find products that match their specific needs and preferences. This project aims to bridge that gap by creating a unified recommendation system that offers tailored beauty product suggestions, addressing the need for personalized solutions across multiple beauty categories.
+The vast array of skincare products available today can make it difficult for consumers to find products that match their specific needs and preferences. This project aims to bridge that gap by creating a unified recommendation system that offers tailored skincare product suggestions, addressing the need for personalized solutions.
 
 
 ## Objectives
-- **Develop** a recommendation system that covers multiple beauty product categories using AI and ML techniques.
+- **Develop** a recommendation system that covers multiple skincare product categories using AI and ML techniques.
 - **Incorporate** content-based filtering, collaborative filtering, and sentiment analysis for accurate, varied recommendations.
 - **Deploy** the system through a user-friendly Streamlit application for accessible, personalized product discovery.
 
 ---
 
 ## Stakeholders
-- **End Users**: Individuals seeking personalized beauty product recommendations across diverse categories.
+- **End Users**: Individuals seeking personalized skincare product recommendations across diverse categories.
 - **Beauty Brands**: Companies interested in offering curated recommendations to their customers.
 - **Retailers**: Platforms looking to enhance the shopping experience with targeted product suggestions.
 
@@ -43,12 +43,12 @@ The dataset used in this project was gathered via a Python-based web scraper, in
 #### 1. Count of Products by Skin Type
 ![skintype](https://github.com/user-attachments/assets/af072621-bc6b-48d9-9be2-b5ce11dea9eb)
 
-* The distribution shows that products labeled for combination skin are the most common, followed by those for dry, normal, and then oily skin. This insight can guide product selection based on prevalent skin types and consumer demand within the Black women demographic.
+* The distribution shows that products labelled for combination skin are the most common, followed by those for dry, normal, and then oily skin. This insight can guide product selection based on prevalent skin types and consumer demand within the Black women demographic.
 
-#### 2. Top 20 Recommended Products for Melanin Skin
+#### 2. Top 20 Recommended Skincare Products
 ![Top 20 Recommended Products for Melanin Skin](https://github.com/ECCHERUIYOT/AI-Powered-Skincare-Recommendations-For-Melanin-Skin/blob/Echeruiyot/images/image2.png)
-* For melanated skin tones, there's a strong emphasis on gentle yet effective skincare products, with the top three recommendations focusing on hydration and sun protection.
-* The Dew Dream Cleansing Balm leads the pack with about 55 recommendations, suggesting that gentle makeup removal is a priority for this skin type. The second most recommended product being the Signature Moisturizer, followed by the NA°39 Facial Sunscreen Mist with SPF 39, indicates that maintaining skin hydration and sun protection are crucial concerns for melanated skin. The prevalence of brightening, revitalizing, and gentle products in the top 10 (such as Absolue Soft Cream and Evercalm Gentle Cleansing Gel) suggests that users with melanated skin often seek products that address hyperpigmentation and sensitivity while maintaining skin barrier health.
+* For many skin tones, there's a strong emphasis on gentle yet effective skincare products, with the top three recommendations focusing on hydration and sun protection.
+* The Dew Dream Cleansing Balm leads the pack with about 55 recommendations, suggesting that gentle makeup removal is a priority for this skin type. The second most recommended product is the Signature Moisturizer, followed by the NA°39 Facial Sunscreen Mist with SPF 39, which indicates that maintaining skin hydration and sun protection are crucial concerns for melanated skin. The prevalence of brightening, revitalizing, and gentle products in the top 10 (such as Absolue Soft Cream and Evercalm Gentle Cleansing Gel) suggests that users with melanated skin often seek products that address hyperpigmentation and sensitivity while maintaining skin barrier health.
 
 * The list also includes several treatment-focused products like glycolic serums and exfoliators in the middle to lower rankings, indicating that while these are important, they're secondary to basic skin protection and hydration needs.
 
@@ -56,7 +56,7 @@ The dataset used in this project was gathered via a Python-based web scraper, in
 ![Out of stock Products and Recommendations based on skin tone](https://github.com/ECCHERUIYOT/AI-Powered-Skincare-Recommendations-For-Melanin-Skin/blob/Echeruiyot/images/image3.png)
 * The Recommended pie chart illustrates the percentage of products recommended versus those that are not. A significant portion (85%) of products are not marked as recommended, indicating a possible quality or suitability gap. This could help identify where product performance might fall short or suggest a need for more tailored product options.
 
-* The Products pie chart shows the balance between new and existing products. The larger percentage of existing products (91%) suggests that the platform maintains a consistent range of products, with newer items being introduced selectively. This distribution can provide insights into the inventory management and refresh rates of the catalog over time.
+* The Products pie chart shows the balance between new and existing products. The larger percentage of existing products (91%) suggests that the platform maintains a consistent range of products, with newer items being introduced selectively. This distribution can provide insights into the inventory management and refresh rates of the catalogue over time.
 
 #### 4. Skin Tone Distribution by Price Tier
 ![skintone](https://github.com/user-attachments/assets/6e1279f0-3247-479c-adef-3549870ebdab)
@@ -64,9 +64,9 @@ The dataset used in this project was gathered via a Python-based web scraper, in
 
 #### 5. Heatmap of Product Count by Skin Tone Category and Skin Type
 ![Heatmap of Product Count by Skin Tone Category and Skin Type](https://github.com/ECCHERUIYOT/AI-Powered-Skincare-Recommendations-For-Melanin-Skin/blob/Echeruiyot/images/image5.png)
-* The heatmap analysis of skin_type and skin_tone_category highlights important insights that align closely with our objective of providing tailored skincare recommendations for women of color. Our data reveals a concentration of products available for combination and dry skin types, particularly within lighter skin tones. However, there is a notable scarcity of options for deeper skin tones, suggesting that women of color may have fewer product options specifically suited to their needs. This gap underscores the limited market focus on skincare for melanin-rich skin concerns, such as hyperpigmentation, dryness, and sensitivity, which are often more pronounced in deeper skin tones.
+* The heatmap analysis of skin_type and skin_tone_category highlights important insights that align closely with our objectives. Our data reveals a concentration of products available for combination and dry skin types, particularly within lighter skin tones. However, there is a notable scarcity of options for deeper skin tones.This gap underscores the limited market focus on skincare for melanin-rich skin concerns, such as hyperpigmentation, dryness, and sensitivity, which are often more pronounced in deeper skin tones.
 
-* These findings directly support our business problem: many existing recommendation systems fail to provide targeted solutions for melanated women. The evident lack of specialized options for drier skin in deeper tones emphasizes an opportunity to develop and recommend products that address this unique need. By prioritizing these underserved areas, our recommendation system can significantly enhance satisfaction and efficacy for women of color seeking products that work for their melanin-rich skin.
+* These findings directly support our business problem: many existing recommendation systems fail to provide targeted solutions for specific skin tones. The evident lack of specialized options for drier skin in deeper tones emphasizes an opportunity to develop and recommend products that address this unique need. By prioritizing these underserved areas, our recommendation system can significantly enhance satisfaction and efficacy for women of color seeking products that work for their melanin-rich skin.
 
 ---
 

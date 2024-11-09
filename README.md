@@ -93,7 +93,7 @@ The Streamlit application enables users to select product categories and highlig
 ![Home Page 1](https://github.com/user-attachments/assets/395f3d3f-a4fd-4b30-af33-3ad5a2865914)
 ![Home Page 2](https://github.com/user-attachments/assets/0937d7c3-367a-43ee-a93f-60c591faa849)
 - **Product Highlights-Based Recommendations**: Users can select specific highlights (e.g., "hydrating," "anti-aging," ) and receive products that meet these needs.
-![Highlights](https://github.com/user-attachments/assets/f7d134e6-b8d2-4615-8b95-b2259f7079c9)
+![Highlights](https://github.com/user-attachments/assets/4e7c7622-eebf-493f-a3b5-31207259fcff)
 - **Recommendation Options**: Users receive product recommendations tailored to specific beauty needs or similar to products they already enjoy.
 ![Content-Based](https://github.com/user-attachments/assets/0e8ca50d-1371-48f9-9b0e-109d9245be16)
 

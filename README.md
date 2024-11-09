@@ -160,6 +160,6 @@ To start the Streamlit application:
 - **`skincareApp.py`**: Main Streamlit application file.
 
 
-# THANK YOU!
+# THANK YOU!!
 ---
 

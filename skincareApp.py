@@ -2,9 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import ast
-from sklearn.decomposition import TruncatedSVD
-from sklearn.metrics.pairwise import cosine_similarity
-from sklearn.feature_extraction.text import TfidfVectorizer
+import pickle
 import base64
 
 # Set up Streamlit page configuration
@@ -68,15 +66,15 @@ def clean_highlights(highlights):
 def setup_models(data):
     melanated_data = data[data['skin_tone_category'] == 'melanated']
     
-    # Content-based filtering with TF-IDF and cosine similarity
-    tfidf = TfidfVectorizer(stop_words='english')
-    ingredients_matrix = tfidf.fit_transform(melanated_data['ingredients'].fillna(''))
-    content_based_model = cosine_similarity(ingredients_matrix, ingredients_matrix)
+    # Load saved models (Content-based and Collaborative)
+    with open('models/content_based_model.pkl', 'rb') as file:
+        content_based_model = pickle.load(file)
     
-    # Collaborative filtering with SVD
-    user_product_matrix = melanated_data.pivot_table(index='author_id', columns='product_id', values='rating').fillna(0)
-    svd_model = TruncatedSVD(n_components=20)
-    latent_matrix = svd_model.fit_transform(user_product_matrix)
+    with open('models/tfidf.pkl', 'rb') as file:
+        tfidf = pickle.load(file)
+
+    with open('models/ingredients_matrix.pkl', 'rb') as file:
+        ingredients_matrix = pickle.load(file)
     
     return melanated_data, content_based_model, ingredients_matrix, tfidf
 
@@ -126,7 +124,7 @@ page_selection = st.sidebar.radio("Do you want products based on:", ("Your Needs
 
 # Home Page: Customer-Feature Based Recommender
 if page_selection == "Your Needs?":
-    st.markdown('<div class="title">PERSONALIZED BEAUTY PRODUCTS RECOMMENDATIONS</div>', unsafe_allow_html=True)
+    st.markdown('<div class="title">MELANIN-CENTERED SKINCARE RECOMMENDER SYSTEM</div>', unsafe_allow_html=True)
     st.markdown('<div class="subtitle">Adjust the filters to match your personal needs.</div>', unsafe_allow_html=True)
 
     # Skin Type Selection  

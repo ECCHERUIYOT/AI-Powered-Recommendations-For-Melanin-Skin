@@ -81,12 +81,25 @@ The recommendation system integrates multiple models:
 5. **Hybrid Model**: Combines content-based and collaborative filtering to provide robust, varied recommendations.
 
 ### Evaluation Metrics
-- **Precision**: Measures the relevance of recommended products.
-- **Recall**: Evaluates the system's effectiveness in covering user preferences.
+- **Precision@k**: Measures the relevance of the top K-recommended products.
+- **Recall@k**: Evaluates the system's effectiveness in covering user preferences in the top K recommendations.
 - **F1-Score**: Ensures a balance between precision and recall.
+- **Hit Rate@k**: Determines if users find a relevant product in the top 5.
+- **Normalized Discounted Cumulative Gain (NDCG)**:Considers the position of relevant items, rewarding relevant items appearing earlier in the recommendations list.
 
 ---
+### Model Performance
+1. **High Precision and Recall at *K*=1:**
+- **Precision@1** of 0.99 and Recall@1 of 0.91 indicate that the model is very accurate when recommending a single top item. Users are very likely to find a relevant item in the top 1 recommendation.
+  
+2. **Performance Drops as *𝐾* Increases:**
+- Precision drops significantly as **𝐾** increases (e.g., **Precision@5** of 0.24 and **Precision@20** of 0.06). This suggests that as more items are recommended, fewer of them are relevant.
 
+3. **Hit Rate@k == 0.99**
+- With a Hit Rate of 0.99 across all values of **𝐾**,the model is consistently recommending at least one relevant item within the top **𝐾** recommendations for almost every user.
+
+4.  The **NDCG@10:** 0.99 result is excellent, indicating that the ranking provided by your recommendation model closely matches the ideal order, where the most relevant items appear at the top.
+---
 ## System Interface
 The Streamlit application enables users to select product categories and highlights for personalized recommendations, covering the full beauty spectrum:
 - **Recommendation Pages**: An intuitive interface where users can select options based on preferences (e.g., skincare, makeup, fragrance).

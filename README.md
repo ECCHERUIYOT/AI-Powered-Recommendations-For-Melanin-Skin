@@ -1,6 +1,6 @@
 # AI-Powered-Recommendations-For-Melanin-Skin
 
-![2d248f5507752726ddc2198b39071e4e](https://github.com/user-attachments/assets/9c7a2247-b758-4aee-8bc7-50fa0bf76f2d)
+![2d248f5507752726ddc2198b39071e4e](https://private-user-images.githubusercontent.com/134943380/384533124-d370cd58-a84b-472c-afa3-ea13a3424085.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MzExMzkyNjksIm5iZiI6MTczMTEzODk2OSwicGF0aCI6Ii8xMzQ5NDMzODAvMzg0NTMzMTI0LWQzNzBjZDU4LWE4NGItNDcyYy1hZmEzLWVhMTNhMzQyNDA4NS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQxMTA5JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MTEwOVQwNzU2MDlaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT0wY2Q4MjFmNjZkZjkxYzYyYjFmYmJhZDFjMTFhOTc1ZjM3ZjJjZDkwY2ZkYTU0MzQwMWVkODZkMTgyYTczZmM4JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.-RStmEJQo7sAfzQgy0PDmDMf6xAVV1DH0hPSyVIyh0Y)
 
 ### Team Members
 * Brian Githinji
@@ -18,25 +18,34 @@
 - [Conclusion](#conclusion)
 - [Repository Navigation](#repository-navigation)
 
-## Business Overview
+## Project Overview
 
-Our AI-powered recommendation system addresses the lack of tailored skincare solutions for individuals with melanin-rich skin. By leveraging two datasets on skin care products and products reviews by different users , our model delivers personalized skincare recommendations, achieving an accuracy of over 90% in predicting optimal products for various skin needs and on different budgets.
+This project focuses on building an AI-powered recommendation system for a variety of beauty products. While traditional recommendation systems tend to specialize in a single category, this project is designed to suggest a broad spectrum of products including skincare, haircare, supplements, perfumes, makeup, and more. This system aims to deliver personalized beauty recommendations that cater to users’ unique needs and preferences using advanced AI techniques.
 
-## Business Understanding
+## Problem Statement
 
-This project aims to develop a recommendation system using advanced AI techniques to cater specifically to Black women’s skincare needs. By integrating machine learning, content- based filtering, collaborative filtering, and sentiment analysis, the system will offer personalized skincare recommendations. Leveraging skin_tone (Author's skin tone (e.g. fair, tan, etc.) as a classification feature, we aim to distinguish and target products that align with melanin-rich skin concerns.
+The vast array of beauty products available today can make it difficult for consumers to find products that match their specific needs and preferences. This project aims to bridge that gap by creating a unified recommendation system that offers tailored beauty product suggestions, addressing the need for personalized solutions across multiple beauty categories.
 
-## Data Understanding
+## Objectives
+* Develop a recommendation system that covers multiple beauty product categories using AI and ML techniques.
+* Incorporate content-based filtering, collaborative filtering, and sentiment analysis for accurate, varied recommendations.
+* Deploy the system through a user-friendly Streamlit application for accessible, personalized product discovery
 
-The dataset was collected via a Python scraper and contains:
-- Product Information: Over 8,000 beauty products from the Sephora online store, including product and brand names, prices, ingredients, ratings, and various features. 
-- User Reviews: Approximately 1 million reviews across over 2,000 products in the skincare category. These reviews include user appearances, skin types, and review ratings.
+## Stakeholders
+* End Users: Individuals seeking personalized beauty product recommendations across diverse categories.
+* Beauty Brands: Companies interested in offering curated recommendations to their customers.
+* Retailers: Platforms looking to enhance the shopping experience with targeted product suggestions.
 
-The key features include:
-- Product Features: `product_id`, `product_name`, `brand_name`, `ingredients`, `rating`, `price_ksh`, `new`, `out_of_stock`, `highlights`. 
-- Review Features: `author_id`, `rating`, `review_text`, `skin_type`, `skin_tone`, and
-`helpfulness`.
+## Data Description
+1. Product Data:
 
+* Beauty Products: Data covering various beauty products from brands, with details on type, ingredients, ratings, and price.
+* Main Features: `product_id`, `product_name`, `category` (skincare, haircare, makeup, etc.), `brand_name`, `ingredients`, `rating`, `price`, `stock_status`.
+
+2. User Reviews:
+
+* Customer Feedback: Reviews with insights into product effectiveness for various skin types, hair textures, and personal preferences.
+* Main Features: `author_id`, `rating`, `review_text`, `skin_type`, `hair_type`, `review_preferences`, `helpfulness`
 
 ### Exploratory Data Analysis
 
@@ -70,28 +79,21 @@ The key features include:
 * These findings directly support our business problem: many existing recommendation systems fail to provide targeted solutions for melanated women. The evident lack of specialized options for drier skin in deeper tones emphasizes an opportunity to develop and recommend products that address this unique need. By prioritizing these underserved areas, our recommendation system can significantly enhance satisfaction and efficacy for women of color seeking products that work for their melanin-rich skin.
 
 
-## Modeling and Evaluation
-We used recommendation systems models as follows;
-* Content Based Filtering Method
-* Collobborative Filtering with SVD
-* Hybrid Recommender System
-We also supplemented the recommendation system models with machine learning models and a deep learning models in sentiment prediction as below;
-* Random Forest Model
-* XGBOOST Model
-* LSTM deep learning model.
+## Modeling Approach
 
-* We evaluated our recommender systems using RMSE and MSE which gave 4.48 and 4.35 consecutively still gave high values after performing hyperparameter tuning,4.59 and 4.41 for RMSE and MAE consecutively.
-The Hybrid system was evaluated using the metrics precision and recall which gave a precision of 0.24 and a recall of 0.98 for the first five recommended items meaning that 24% of the items recommended in the top 5 were relevant to users. This suggests that while some relevant items are being recommended, there is still room for improvement in ensuring that more of the top recommendations are relevant.
-Recall of 0.98, indicates that 98% of all relevant items (up to the top 5) are being successfully recommended. This is a high recall value, suggesting that the model is good at covering the items users are interested in.
+The recommendation system integrates multiple models:
 
-* We also used conversion metrics;
-i.) `Hit rate` which gave a Hit Rate of 0.99 across all values of k items meaning,the model is consistently recommending at least one relevant item within the top 𝐾 recommendations for almost every user.
-ii.) `Normalized Discounted Cumulative Gain` which gave an average value of 0.99 as well indicating that the ranking provided by your recommendation model closely matches the ideal order, where the most relevant items appear at the top.
+1. Customer Feature-Based Recommender: Recommends products based solely on customer characteristics.
+2. Highlight-Based Recommender: Recommends products based on selected highlights, catering to specific product features.
+3. Content-Based Filtering Model: Recommends similar products based on ingredients and features using cosine similarity.
+4. Collaborative Filtering with SVD: Leverages user-product interactions to recommend products based on user preferences.
+5. Hybrid Model: Combines content-based and collaborative filtering to provide robust, varied recommendations.
 
-* For sentiment prediction the best performing model was XGBOOST.
-The Random Forest model performs well,with 94% accuracy and especially in predicting class 1 (positive class), with high precision and recall values. However, the lower recall for class 0 (negative class) suggests that some negative cases are being misclassified.
+## Evaluation Metrics
 
-The XGBoost model exhibits superior performance compared to the Random Forest, achieving higher accuracy of 96% and balanced metrics across both classes, indicating a robust prediction capability.
+* Precision: Measures the relevance of recommended products.
+* Recall: Evaluates the system's effectiveness in covering user preferences.
+* F1-Score: Ensures a balance between precision and recall.
 
 
 ## Conclusion

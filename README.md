@@ -2,39 +2,40 @@
 ![product](https://github.com/user-attachments/assets/d370cd58-a84b-472c-afa3-ea13a3424085)
 
 
-## Project Overview
-This project focuses on building an AI-powered skincare recommendation system, to cater to the needs of unique skin profiles. While traditional recommendation systems tend to generalize the recommendations, this project is designed to suggest a personalized skincare product to the end user. This system aims to deliver personalized skincare recommendations that cater to users’ unique needs and preferences using advanced AI techniques.
+# Project Overview
+This project addresses a significant gap in the skincare industry: **the lack of tailored product recommendations for women of colour**, who often have unique skincare needs such as hyperpigmentation, dryness, and sensitivity. Current recommendation systems tend to generalize recommendations without considering the specific concerns of malanated women, leading to lower customer satisfaction and less effective skincare routines for this demographic.
+To bridge this gap, we developed a recommendation system powered by advanced AI techniques, specifically targeting melanin-rich skin. Using a combination of machine learning models, such as content-based filtering (utilizing cosine similarity for ingredient-based similarity), collaborative filtering (using SVD), and sentiment analysis (LSTM model and Sentiment Intensity Analyzer), the system generates personalized product recommendations. Key elements include sentiment classification of reviews, ingredient similarity analysis, and a hybrid recommendation approach to capture and enhance user-product interactions.
+The model can provide recommendations based on product similarity, collaborative filtering for user-product interaction, and specific user needs. Moreover, the system offers a user-friendly Streamlit interface, allowing users to input a product name and receive similar product suggestions based on their skincare profile.
+By catering specifically to women of color’s skincare needs, **this project aims to increase accessibility to effective skincare solutions and improve customer satisfaction within this underrepresented demographic.**
 
 ---
 
 ## Problem Statement
-The vast array of skincare products available today can make it difficult for consumers to find products that match their specific needs and preferences. This project aims to bridge that gap by creating a unified recommendation system that offers tailored skincare product suggestions, addressing the need for personalized solutions.
+Women of color represent a significant demographic in the beauty and skincare industry, yet they face limited access to skincare products tailored to their specific needs, such as hyper- pigmentation, dryness, and sensitivity. Most available recommendation systems overlook the unique skin concerns of women of color, offering general suggestions rather than targeted solutions. This gap impacts consumer satisfaction, as melanated women often struggle to find effective products for their melanin-rich skin. 
+This project aims to develop a recommendation system using advanced AI techniques to cater specifically to women’s skincare needs. By integrating machine learning, content- based filtering, collaborative filtering, and sentiment analysis, the system will offer personalized skincare recommendations. Leveraging skin_tone (Author's skin tone (e.g. fair, tan, etc.) as a classification feature, we aim to distinguish and target products that align with melanin-rich skin concerns.
 
 
-## Objectives
-- **Develop** a recommendation system that covers multiple skincare product categories using AI and ML techniques.
-- **Incorporate** content-based filtering, collaborative filtering, and sentiment analysis for accurate, varied recommendations.
-- **Deploy** the system through a user-friendly Streamlit application for accessible, personalized product discovery.
+### Objectives
+1. Develop a melanin-centered skincare recommendation system using deep learning, tailored for Black women’s unique skin needs.
+2. Utilize content-based and collaborative filtering along with sentiment analysis to enhance recommendation accuracy. 
+3. Deploy an accessible Streamlit interface for personalized, user-friendly skincare suggestions. 
+
+### Stakeholders
+1. *Users*: Black women seeking tailored skincare solutions. 
+2. *Skincare Brands*: Companies interested in product insights for melanin-rich skin. 
+3. *Healthcare Professionals*: Dermatologists who may use the system as a recommendation tool. 
 
 ---
 
-## Stakeholders
-- **End Users**: Individuals seeking personalized skincare product recommendations across diverse categories.
-- **Beauty Brands**: Companies interested in offering curated recommendations to their customers.
-- **Retailers**: Platforms looking to enhance the shopping experience with targeted product suggestions.
+## Data Understanding:
+The dataset was collected via a Python scraper and contains:
+- Product Information: Over 8,000 beauty products from the Sephora online store, including product and brand names, prices, ingredients, ratings, and various features. 
+- User Reviews: Approximately 1 million reviews across over 2,000 products in the skincare category. These reviews include user appearances, skin types, and review ratings.
 
----
-
-## Data Description
-The dataset used in this project was gathered via a Python-based web scraper, including a wide array of beauty products and user reviews.
-
-1. **Product Data**:
-   - **Beauty Products**: Data covering various beauty products from brands, with details on type, ingredients, ratings, and price.
-   - **Main Features**: `product_id`, `product_name`, `category` (skincare, haircare, makeup, etc.), `brand_name`, `ingredients`, `rating`, `price`, `stock_status`.
-
-2. **User Reviews**:
-   - **Customer Feedback**: Reviews with insights into product effectiveness for various skin types, hair textures, and personal preferences.
-   - **Main Features**: `author_id`, `rating`, `review_text`, `skin_type`, `hair_type`, `review_preferences`, `helpfulness`.
+The key features include:
+- Product Features: `product_id`, `product_name`, `brand_name`, `ingredients`, `rating`, `price_ksh`, `new`, `out_of_stock`, `highlights`. 
+- Review Features: `author_id`, `rating`, `review_text`, `skin_type`, `skin_tone`, and
+`helpfulness`.
 
 ---
 
@@ -105,7 +106,7 @@ The Streamlit application enables users to select product categories and highlig
 
 ## CHALLENGES
 Throughout the project, some notable challenges included:
-- **Data Limitations**: The dataset was limited in brand and product diversity, which restricted the range of recommendations.
+- **Data Limitations**: The dataset was limited in brand, categories and product diversity, which restricted the range of recommendations.
 - **Model Optimization**: Balancing the hybrid model’s performance was challenging, as both content-based and collaborative methods required fine-tuning to avoid biases.
 - **Sentiment Analysis Accuracy**: Ensuring accurate sentiment analysis was critical for prioritizing products, but limitations in natural language processing led to occasional inaccuracies in sentiment scoring.
 
@@ -159,7 +160,7 @@ To start the Streamlit application:
 - **`index.ipynb/`**: Jupyter notebook for data preprocessing, EDA and model training.
 - **`skincareApp.py`**: Main Streamlit application file.
 
-
+![Presentation][https://www.canva.com/design/DAGVhd5J2HY/PEtTgT8s4gSNxLThvX2mTA/edit]
 # THANK YOU!!
 ---
 

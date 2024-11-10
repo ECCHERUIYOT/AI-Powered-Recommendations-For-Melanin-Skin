@@ -150,8 +150,8 @@ To run this project locally, follow these steps:
 ### Installation
 1. Clone this repository:
    ```bash
-   git clone https://github.com/ECCHERUIYOT/AI-Powered-Skincare-Recommendations-For-Melanin-Skin.git
-   cd AI-Powered-Skincare-Recommendations-For-Melanin-Skin
+   git clone https://github.com/ECCHERUIYOT/Melanin-Centered-Skincare-Recommendation-System.git
+   cd Melanin-Centered-Skincare-Recommendation-System
    ```
 2. Install required packages:
     ```bash

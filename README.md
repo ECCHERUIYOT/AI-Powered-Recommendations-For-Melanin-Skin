@@ -103,9 +103,9 @@ The recommendation system integrates multiple models:
 ## System Interface
 The Streamlit application enables users to select product categories and highlights for personalized recommendations, covering the full beauty spectrum:
 - **Recommendation Pages**: An intuitive interface where users can select options based on preferences (e.g., skincare, makeup, fragrance).
-![Home Page 1](https://github.com/user-attachments/assets/63d4b197-4214-4ab7-95de-5c4b2e78ecc8) 
+
 ![Home Page 2](https://github.com/user-attachments/assets/78d7db20-b1e5-4d96-8bdb-7031629aafea)
- 
+ ![Home Page 1](https://github.com/user-attachments/assets/367f5794-5e65-4718-b342-5f8ef4e0e6d0)
 - **Product Highlights-Based Recommendations**: Users can select specific highlights (e.g., "hydrating," "anti-aging," ) and receive products that meet these needs.
 ![Highlights](https://github.com/user-attachments/assets/d5d19dc2-b7df-420a-9f38-b7c0121c4784)
 - **Recommendation Options**: Users receive product recommendations tailored to specific beauty needs or similar to products they already enjoy.

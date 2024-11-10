@@ -1,4 +1,4 @@
-# AI-POWERED PERSONALIZED SKINCARE RECOMMENDER
+# MELANIN-CENTERED SKINCARE RECOMMENDATION SYSTEM
 ![product](https://github.com/user-attachments/assets/a99f82c1-111e-4b1d-a447-518fac92dedd)
 
 

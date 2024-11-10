@@ -1,5 +1,5 @@
 # AI-POWERED PERSONALIZED SKINCARE RECOMMENDER
-![product](https://github.com/user-attachments/assets/d370cd58-a84b-472c-afa3-ea13a3424085)
+![product](https://github.com/user-attachments/assets/a99f82c1-111e-4b1d-a447-518fac92dedd)
 
 
 # Project Overview
@@ -103,12 +103,13 @@ The recommendation system integrates multiple models:
 ## System Interface
 The Streamlit application enables users to select product categories and highlights for personalized recommendations, covering the full beauty spectrum:
 - **Recommendation Pages**: An intuitive interface where users can select options based on preferences (e.g., skincare, makeup, fragrance).
-![Home Page 1](https://github.com/user-attachments/assets/395f3d3f-a4fd-4b30-af33-3ad5a2865914)
-![Home Page 2](https://github.com/user-attachments/assets/0937d7c3-367a-43ee-a93f-60c591faa849)
+![Home Page 1](https://github.com/user-attachments/assets/eda5451e-2b20-4368-8a50-fc52b9ffe178)
+![Home Page 2](https://github.com/user-attachments/assets/78d7db20-b1e5-4d96-8bdb-7031629aafea)
+ 
 - **Product Highlights-Based Recommendations**: Users can select specific highlights (e.g., "hydrating," "anti-aging," ) and receive products that meet these needs.
-![Highlights](https://github.com/user-attachments/assets/4e7c7622-eebf-493f-a3b5-31207259fcff)
+![Highlights](https://github.com/user-attachments/assets/d5d19dc2-b7df-420a-9f38-b7c0121c4784)
 - **Recommendation Options**: Users receive product recommendations tailored to specific beauty needs or similar to products they already enjoy.
-![Content-Based](https://github.com/user-attachments/assets/0e8ca50d-1371-48f9-9b0e-109d9245be16)
+![Content-Based](https://github.com/user-attachments/assets/86e48078-39c1-428e-8a8d-cf3e34ce3e30)
 
 ---
 

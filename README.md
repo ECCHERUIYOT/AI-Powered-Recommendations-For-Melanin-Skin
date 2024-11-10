@@ -42,7 +42,7 @@ The key features include:
 ### Exploratory Data Analysis
 
 #### 1. Count of Products by Skin Type
-![skintype](https://github.com/user-attachments/assets/af072621-bc6b-48d9-9be2-b5ce11dea9eb)
+![skintype](https://github.com/user-attachments/assets/84e65f71-ebc1-4007-b4af-dd5b4f295572)
 
 * The distribution shows that products labelled for combination skin are the most common, followed by those for dry, normal, and then oily skin. This insight can guide product selection based on prevalent skin types and consumer demand within the Black women demographic.
 

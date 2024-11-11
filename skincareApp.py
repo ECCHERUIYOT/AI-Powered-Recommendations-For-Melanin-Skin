@@ -7,7 +7,7 @@ import base64
 from sklearn.neighbors import NearestNeighbors
 
 # Set up Streamlit page configuration
-st.set_page_config(page_title="AI-Powered Beauty Products Recommendations", layout="wide")
+st.set_page_config(page_title="MELANIN-CENTERED SKINCARE RECOMMENDATION SYSTEM", layout="wide")
 
 # Function to load image and convert it to base64
 def get_img_as_base64(file_path):

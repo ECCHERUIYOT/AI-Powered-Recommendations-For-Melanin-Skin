@@ -1,9 +1,13 @@
-streamlit==1.24.0  # for building the web app
-pandas==2.1.1      # for data manipulation
-numpy==1.26.0      # for numerical operationsarrow==1.3.0
+streamlit==1.24.0 
+pandas==2.1.1  
+numpy==1.26.0  
 asttokens==2.4.1
 astunparse==1.6.3
 async-lru==2.0.4
 attrs==24.2.0
-scikit-learn @ file:///C:/b/abs_d3v1kgwb2p/croot/scikit-learn_1684781087231/work
-
+scikit-learn==1.5.2
+matplotlib==3.9.2
+pillow==10.4.0
+requests==2.32.3
+pyyaml==6.0.2
+pytz==2024.2

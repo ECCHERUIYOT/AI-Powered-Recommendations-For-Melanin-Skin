@@ -230,7 +230,7 @@ elif page_selection == "Product Highlights?":
 elif page_selection == "A Product You Already Like?":
     st.markdown('<div class="title">PRODUCT SIMILARITY-BASED RECOMMENDATIONS</div>', unsafe_allow_html=True)
     st.markdown("""
-    If you already have a product you love, simply enter its name below. We'll find similar products with shared ingredients to help you expand your beauty routine.
+    If you already have a product you love, simply enter its name below. We'll find similar products with shared ingredients to help you expand your skincare routine.
     """)
     product_name = st.text_input("Product Name: (eg. GENIUS Collagen Calming Relief) ", 'Aloe Vera Gel')
 

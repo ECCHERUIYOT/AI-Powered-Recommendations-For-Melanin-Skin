@@ -67,13 +67,13 @@ def setup_models(data):
     melanated_data = data[data['skin_tone_category'] == 'melanated']
     
     # Load saved models (Content-based and Collaborative)
-    with open('models/content_based_model.pkl', 'rb') as file:
+    with open('Models/content_based_model.pkl', 'rb') as file:
         content_based_model = pickle.load(file)
     
-    with open('models/tfidf.pkl', 'rb') as file:
+    with open('Models/tfidf.pkl', 'rb') as file:
         tfidf = pickle.load(file)
 
-    with open('models/ingredients_matrix.pkl', 'rb') as file:
+    with open('Models/ingredients_matrix.pkl', 'rb') as file:
         ingredients_matrix = pickle.load(file)
     
     return melanated_data, content_based_model, ingredients_matrix, tfidf

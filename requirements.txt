@@ -1,6 +1,9 @@
 streamlit==1.24.0  # for building the web app
 pandas==2.1.1      # for data manipulation
-numpy==1.26.0      # for numerical operations
-ast==0.1.0         # for abstract syntax tree parsing (might be installed by default)
-pickle5==0.0.11    # for model loading (standard pickle may already be included)
-scikit-learn==1.3.1  # for machine learning models
+numpy==1.26.0      # for numerical operationsarrow==1.3.0
+asttokens==2.4.1
+astunparse==1.6.3
+async-lru==2.0.4
+attrs==24.2.0
+scikit-learn @ file:///C:/b/abs_d3v1kgwb2p/croot/scikit-learn_1684781087231/work
+

@@ -4,6 +4,7 @@ import numpy as np
 import ast
 import pickle
 import base64
+from sklearn.neighbors import NearestNeighbors
 
 # Set up Streamlit page configuration
 st.set_page_config(page_title="AI-Powered Beauty Products Recommendations", layout="wide")
@@ -87,27 +88,33 @@ def get_top_ingredients(tfidf_vector, feature_names, top_n=5):
 # Function to get content-based recommendations
 def content_based_recommendations(product_name, melanated_data, content_based_model, ingredients_matrix, tfidf, top_n=5):
     try:
+        # Find the index of the input product in the dataset
         product_index = melanated_data[melanated_data['product_name'] == product_name].index[0]
     except IndexError:
         st.write("Product not found in the dataset.")
         return None
 
-    sim_scores = sorted(list(enumerate(content_based_model[product_index])), key=lambda x: x[1], reverse=True)
+    # Use kneighbors to get the indices and distances of the nearest neighbors
+    distances, indices = content_based_model.kneighbors(ingredients_matrix[product_index], n_neighbors=top_n+1)
+    
+    # Collect unique recommendations, excluding the product itself
     unique_recommendations = []
     seen_products = set()
 
-    for score in sim_scores:
-        product_idx = score[0]
-        product_name_candidate = melanated_data.iloc[product_idx]['product_name']
-        if product_name_candidate != product_name and product_name_candidate not in seen_products:
-            unique_recommendations.append(product_idx)
-            seen_products.add(product_name_candidate)
+    for i in indices.flatten():
+        candidate_product_name = melanated_data.iloc[i]['product_name']
+        if candidate_product_name != product_name and candidate_product_name not in seen_products:
+            unique_recommendations.append(i)
+            seen_products.add(candidate_product_name)
         if len(unique_recommendations) >= top_n:
             break
 
+    # Create recommendations DataFrame
     recommendations = melanated_data.iloc[unique_recommendations][['product_name', 'brand_name', 'price_ksh']]
     feature_names = tfidf.get_feature_names_out()
-    top_ingredients = [get_top_ingredients(ingredients_matrix[idx].toarray().flatten(), feature_names) for idx in unique_recommendations]
+    top_ingredients = [
+        get_top_ingredients(ingredients_matrix[idx].toarray().flatten(), feature_names) for idx in unique_recommendations
+    ]
     recommendations['top_ingredients'] = top_ingredients
 
     return recommendations
@@ -116,6 +123,9 @@ def content_based_recommendations(product_name, melanated_data, content_based_mo
 data = load_data()
 melanated_data, content_based_model, ingredients_matrix, tfidf = setup_models(data)
 unique_highlights = melanated_data['highlights_clean'].explode().unique()
+
+content_based_model = NearestNeighbors(metric='cosine', algorithm='brute')
+content_based_model.fit(ingredients_matrix)
 
 # Sidebar for Navigation
 st.sidebar.title("***Welcome ...***")

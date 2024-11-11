@@ -173,7 +173,7 @@ To start the Streamlit application:
 - **`index.ipynb/`**: Jupyter notebook for data preprocessing, EDA and model training.
 - **`skincareApp.py`**: Main Streamlit application file.
 
-[Presentation Link](https://www.canva.com/design/DAGVhd5J2HY/PEtTgT8s4gSNxLThvX2mTA/edit)
+[Link to Non-Technical Presentation](https://www.canva.com/design/DAGVhd5J2HY/PEtTgT8s4gSNxLThvX2mTA/edit)
 # THANK YOU!!
 ---
 

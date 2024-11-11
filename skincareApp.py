@@ -47,7 +47,7 @@ st.markdown("""
 # Load and cache data
 @st.cache_data(show_spinner=False)
 def load_data():
-    data = pd.read_csv('data/melanated_data.csv')
+    data = pd.read_csv('Data/melanated_data.csv')
     data['highlights_clean'] = data['highlights'].apply(clean_highlights)
     return data
 

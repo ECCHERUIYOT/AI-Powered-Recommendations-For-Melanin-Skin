@@ -86,25 +86,44 @@ def get_top_ingredients(tfidf_vector, feature_names, top_n=5):
     return ', '.join(top_terms)
 
 # Function to get content-based recommendations
-def content_based_recommendations(product_name, melanated_data, content_based_model, ingredients_matrix, tfidf):
-    # Get the index of the input product_name
-    product_index = melanated_data[melanated_data['product_name'] == product_name].index[0]
-    
+def content_based_recommendations(product_name, melanated_data, content_based_model, ingredients_matrix, tfidf, top_n=5):
+    try:
+        # Get the index of the input product_name
+        product_index = melanated_data[melanated_data['product_name'] == product_name].index[0]
+    except IndexError:
+        st.write("Product not found in the dataset.")
+        return None
+
     # Find the nearest neighbors for the product
-    distances, indices = content_based_model.kneighbors(ingredients_matrix[product_index], n_neighbors=11)
-    
+    distances, indices = content_based_model.kneighbors(ingredients_matrix[product_index], n_neighbors=top_n + 1)  # Include the input product itself
+
     # Create a list of tuples with product indices and their corresponding similarity scores (distances)
     sim_scores = list(zip(indices[0], distances[0]))  # [0] to get the first row of results
 
     # Sort the list of tuples by the similarity score (distance)
     sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=False)  # Sorting by ascending distance
 
-    # Extract the product names for the top recommendations (exclude the product itself)
+    # Extract the indices of the recommended products (excluding the input product itself)
     recommended_products = []
-    for idx, _ in sim_scores[1:]:  # Excluding the first one as it is the input product itself
-        recommended_products.append(melanated_data.iloc[idx]['product_name'])
-    
-    return recommended_products
+    seen_products = set()
+
+    for idx, _ in sim_scores[1:]:  # Exclude the first one as it is the input product itself
+        product_name_candidate = melanated_data.iloc[idx]['product_name']
+        if product_name_candidate not in seen_products:
+            recommended_products.append(idx)
+            seen_products.add(product_name_candidate)
+        if len(recommended_products) >= top_n:
+            break
+
+    # Retrieve product details for the recommendations
+    recommendations = melanated_data.iloc[recommended_products][['product_name', 'brand_name', 'price_ksh']]
+
+    # Get the top ingredients for each recommended product
+    feature_names = tfidf.get_feature_names_out()
+    top_ingredients = [get_top_ingredients(ingredients_matrix[idx].toarray().flatten(), feature_names) for idx in recommended_products]
+    recommendations['top_ingredients'] = top_ingredients
+
+    return recommendations
 
 # Load and set up data and models
 data = load_data()

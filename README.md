@@ -101,7 +101,7 @@ The recommendation system integrates multiple models:
 4.  The **NDCG@10:** 0.99 result is excellent, indicating that the ranking provided by your recommendation model closely matches the ideal order, where the most relevant items appear at the top.
 ---
 ## DEPLOYMENT
-The Streamlit [App](https://melanin-centered-skincare-recommendation-system.streamlit.app/) enables users to select product categories and highlights for personalized recommendations, covering the full beauty spectrum:
+The Streamlit [App](https://melanin-centered-skincare-recommendation-system.streamlit.app/) enables users to select product categories and highlights for personalized recommendations, covering the full skincare spectrum:
 - **Recommendation Pages**: An intuitive interface where users can select options based on preferences (e.g., skincare, makeup, fragrance).
  ![Home Page 1](https://github.com/user-attachments/assets/367f5794-5e65-4718-b342-5f8ef4e0e6d0)
 ![Home Page 2](https://github.com/user-attachments/assets/78d7db20-b1e5-4d96-8bdb-7031629aafea)

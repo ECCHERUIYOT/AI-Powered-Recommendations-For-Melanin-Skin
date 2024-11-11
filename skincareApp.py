@@ -86,7 +86,7 @@ def get_top_ingredients(tfidf_vector, feature_names, top_n=5):
     return ', '.join(top_terms)
 
 # Function to get content-based recommendations
-def content_based_recommendations(product_name, melanated_data, content_based_model, ingredients_matrix, tfidf, top_n=5):
+def content_based_recommendations(product_name, melanated_data, content_based_model, ingredients_matrix, tfidf, top_n=15):
     try:
         # Get the index of the input product_name
         product_index = melanated_data[melanated_data['product_name'] == product_name].index[0]

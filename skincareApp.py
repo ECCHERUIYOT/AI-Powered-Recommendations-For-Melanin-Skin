@@ -232,7 +232,7 @@ elif page_selection == "A Product You Already Like?":
     st.markdown("""
     If you already have a product you love, simply enter its name below. We'll find similar products with shared ingredients to help you expand your beauty routine.
     """)
-    product_name = st.text_input("Product Name: (eg. Vitamin A Serum with 0.5% Retinol) ", 'Deep Exfoliating Cleanser')
+    product_name = st.text_input("Product Name: (eg. Deep Exfoliating Cleanser) ", 'Aloe Vera Gel')
 
     if st.button("Get Recommendations"):
         recommendations = content_based_recommendations(product_name, melanated_data, content_based_model, ingredients_matrix, tfidf)

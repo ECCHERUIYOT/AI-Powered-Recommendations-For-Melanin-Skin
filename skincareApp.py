@@ -86,9 +86,19 @@ def get_top_ingredients(tfidf_vector, feature_names, top_n=5):
     return ', '.join(top_terms)
 
 def content_based_recommendations(product_name, melanated_data, content_based_model, ingredients_matrix, tfidf):
+    # Ensure the product_name exists in the dataset
+    if product_name not in melanated_data['product_name'].values:
+        print(f"Product '{product_name}' not found in the dataset.")
+        return []
+
     # Get the index of the input product_name
     product_index = melanated_data[melanated_data['product_name'] == product_name].index[0]
     
+    # Ensure the product_index is within the bounds of the dataset
+    if product_index >= len(melanated_data):
+        print(f"Product index {product_index} is out of range.")
+        return []
+
     # Find the nearest neighbors for the product
     distances, indices = content_based_model.kneighbors(ingredients_matrix[product_index], n_neighbors=11)
     
@@ -104,6 +114,7 @@ def content_based_recommendations(product_name, melanated_data, content_based_mo
         recommended_products.append(melanated_data.iloc[idx]['product_name'])
     
     return recommended_products
+
     
 # Load and set up data and models
 data = load_data()
